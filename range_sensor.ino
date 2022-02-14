@@ -22,16 +22,16 @@ float getCM () {
 int getInterval (float cm) {
   int interval;
   if (cm > 60) {
-    interval = 1000;
+    interval = 500;
   }
   if (cm < 60 && cm > 45) {
-    interval = 700;
+    interval = 350;
   }
   if (cm < 45 && cm > 30) {
-    interval = 400;
+    interval = 200;
   }
   if (cm < 30 && cm > 20) {
-    interval = 100;
+    interval = 50;
   }
   if (cm < 20) {
     interval = 0;
@@ -42,7 +42,6 @@ int getInterval (float cm) {
 // Blink
 void blinkWithMillis (int interval) {
   // If interval == 0, led should always be on
-  if (!ledstate && interval == 0) {
     currentMillis = millis();
     // Blink if blink interval is reached
     if (currentMillis - prevMillis >= interval) {
@@ -50,7 +49,6 @@ void blinkWithMillis (int interval) {
       digitalWrite (ledPin, ledState);
       prevMillis = currentMillis;  
     }  
-  }
 }
 
 

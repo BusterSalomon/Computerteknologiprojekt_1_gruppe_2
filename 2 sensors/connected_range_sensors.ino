@@ -77,9 +77,13 @@ blinkWithMillis
 Pre: Takes 4 arguments
  1) interval: integer - the interval the LED should blink with 
  2) output: integer - the pin the arduino should write to (send high signal)
- 3) prevMillis: unsigned long - number in mill
+ 3) prevMillis: unsigned long - number in milliseconds representing the timestamp last time an interval reached
+ 4) *ledState: integer pointer - points to a ledState (HIGH/LOW - 1/0)
 
-
+ Post:
+ Returns an unsigned long
+ If the interval is reached it returns a new timestamp 
+ If the interval is not reached it returns the same timestamp - prevMillis
 */
 unsigned long blinkWithMillis(int interval, int output, unsigned long prevMillis, int *ledState) {
 
@@ -111,7 +115,6 @@ void loop() {
 
   // Left
   float cm = getCM(inputPin);
-  Serial.println(cm);
   int interval1 = getInterval(cm);
   prevMillis1 = blinkWithMillis(interval1, ledPin, prevMillis1, led1);
 

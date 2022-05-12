@@ -1,4 +1,5 @@
 {
     "board": "arduino:avr:micro",
-    "sketch": "range_sensor.ino"
+    "sketch": "2 sensors and light\\connected_range_sensors_Light.ino",
+    "port": "COM7"
 }

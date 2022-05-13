@@ -164,12 +164,13 @@ class Obstacle():
     # Highest level method
     # Does the following in order:
     # 1. Get distances
-    # 2. get average of the distances
-    # 3. get direction based on the average distances
-    # 4. get angular velocity based on the center average distance
-    # 5. get linear velocity based on the center average distance
-    # 6. updates collision counter
-    # 7. Publish the velocities
+    # 2. split distances into tree parts; left, center and right
+    # 3. get average of the distances
+    # 4. get direction based on the average distances
+    # 5. get angular velocity based on the center average distance
+    # 6. get linear velocity based on the center average distance
+    # 7. updates collision counter
+    # 8. Publish the velocities
     def obstacle(self):
         rospy.loginfo("Obstacle Avoidance Starts")
 

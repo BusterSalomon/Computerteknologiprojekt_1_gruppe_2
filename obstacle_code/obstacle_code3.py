@@ -172,6 +172,7 @@ class Obstacle():
     # 7. updates collision counter
     # 8. Publish the velocities
     def obstacle(self):
+        twist = Twist()
         rospy.loginfo("Obstacle Avoidance Starts")
 
         while not rospy.is_shutdown():
@@ -204,7 +205,11 @@ class Obstacle():
                 self.cond_update_collisions(collision_flag)
 
                 # Apply movement
-                self.apply_movement(angular_vel, linear_vel)
+                #self.apply_movement(angular_vel, linear_vel)
+
+                twist.linear.x = linear_vel
+                twist.angular.z = angular_vel
+                self._cmd_pub.publish(twist)
 
 
     

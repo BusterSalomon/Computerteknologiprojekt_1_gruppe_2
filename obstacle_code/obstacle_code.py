@@ -66,7 +66,7 @@ class Obstacle():
     def obstacle(self):
         twist = Twist()
         turtlebot_moving = True
-        angular_max_vel = 2.64 # max angular velocity in rad/s
+        ANGULAR_MAX_VEL = 2.64 # max angular velocity in rad/s
 
         while not rospy.is_shutdown():
             
@@ -78,8 +78,8 @@ class Obstacle():
 
             # min distance and angular velocity calculations
             min_distance = min(lidar_center)
-            if (angular_max_vel > min_distance):
-                angular_vel = abs(angular_max_vel - min_distance)
+            if (ANGULAR_MAX_VEL > min_distance):
+                angular_vel = abs(ANGULAR_MAX_VEL - min_distance)
             else:
                 angular_vel = 0
 

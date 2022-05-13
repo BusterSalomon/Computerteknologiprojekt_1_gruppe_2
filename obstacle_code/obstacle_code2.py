@@ -69,7 +69,7 @@ class Obstacle():
         rospy.loginfo("Obstacle Avoidance Starts")
         twist = Twist()
         turtlebot_moving = True
-        angular_max_vel = 2.64 # max angular velocity in rad/s
+        ANGULAR_MAX_VEL = 2.64 # max angular velocity in rad/s
 
         while not rospy.is_shutdown():
             rospy.loginfo('loop start_______________')
@@ -88,7 +88,7 @@ class Obstacle():
                 rospy.loginfo("center_avrg: %f", center_avrg)
                 direction = 0
                 if (center_avrg < TURNING_DISTANCE):
-                    angular_vel = abs(angular_max_vel - center_avrg) * TURNING_CONSTANT
+                    angular_vel = abs(ANGULAR_MAX_VEL - center_avrg) * TURNING_CONSTANT
                     # determine direction of rotation
                     if(sum(lidar_left) < sum(lidar_right)):
                         direction = 1

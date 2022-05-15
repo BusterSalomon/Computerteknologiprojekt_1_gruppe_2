@@ -81,7 +81,7 @@ class Obstacle():
     # -1: Right
     # 0: Forward
     # 1: Left
-    def get_direction (left_avrg, center_avrg, right_avrg):
+    def get_direction (self, left_avrg, center_avrg, right_avrg):
         direction = 0
         if (center_avrg < TURNING_DISTANCE):
             if (abs(left_avrg - right_avrg) < 0.1 and center_avrg > SAFE_STOP_DISTANCE): # need explanation
@@ -100,7 +100,7 @@ class Obstacle():
     # ----- SPLIT SCAN -----
     # Pre: Takes an array of lidar scans
     # Post: Returns 3 arrays with lidar scans, left, center and right
-    def split_scan(lidar_distances):
+    def split_scan(self, lidar_distances):
         lidar_left = [d for d in lidar_distances[10:36] if d != 0]
         lidar_center = [d for d in lidar_distances[35:56] if d != 0]
         lidar_right = [d for d in lidar_distances[55:81] if d != 0]
@@ -110,9 +110,9 @@ class Obstacle():
     # Pre: Takes the center array scans as argument
     # Post: Splits the center array into two, takes the average of both, and returns the smallest average
     # Purpose: ...
-    def get_center_avrg(center_arr):
+    def get_center_avrg(self, center_arr):
         center_size = len(center_arr)
-        if center_size == 1: center_size = 2
+        if center_size == 1: return center_arr[0]
         center_avrg = min([sum(center_arr[:(center_size/2)]) / (center_size/2), sum(center_arr[(center_size/2):]) / (center_size/2)])
         return center_avrg
 
@@ -121,7 +121,7 @@ class Obstacle():
     # Post: Calculates and returns the angular velocity.
     # The angular velocity is calculated so it increases as it moves closer to obstacles
     # NOTEE: we could make a graph/function that shows how much is turns based on the center average! Maybe we should make it exponentiel instead of linear?
-    def get_angular_vel(center_avrg):
+    def get_angular_vel(self, center_avrg):
         if (center_avrg < TURNING_DISTANCE):
             angular_vel = abs(ANGULAR_MAX_VEL - (center_avrg * 1.4)) * TURNING_CONSTANT # !!!SHOULD BE REFACTORED!!!
         else: 
@@ -133,7 +133,7 @@ class Obstacle():
     # Post: Returns the linear velocity, and a collision flag
     # The linear velocity is calculated so it goes slower as it moves closer to an obstacle
     # NOTEE: math function that shows the linear speed as a function of center avrg!
-    def get_linear_vel(self, center_avrg, angular_vel, direction):
+    def get_linear_vel(self, center_avrg, direction):
         linear_vel = 0
         collision_flag = False
         if center_avrg < SAFE_STOP_DISTANCE:
@@ -151,14 +151,6 @@ class Obstacle():
         if (collision_flag): 
             self.collisions += 1
 
-    # ----- APPLY MOVEMENT -----
-    # Pre: Takes an angular velocity and linear velocity as parameters
-    # Post: Apply angular and linear velocity and publish
-    def apply_movement(self, angular_vel, linear_vel):
-        twist = Twist()
-        twist.linear.x = linear_vel
-        twist.angular.z = angular_vel
-        self._cmd_pub.publish(twist)
 
     # ----- OBSTACLE: HIGH LEVEL -----
     # Highest level method
@@ -205,8 +197,6 @@ class Obstacle():
                 self.cond_update_collisions(collision_flag)
 
                 # Apply movement
-                #self.apply_movement(angular_vel, linear_vel)
-
                 twist.linear.x = linear_vel
                 twist.angular.z = angular_vel
                 self._cmd_pub.publish(twist)

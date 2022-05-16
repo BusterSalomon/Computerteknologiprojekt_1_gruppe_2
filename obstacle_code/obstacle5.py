@@ -102,7 +102,7 @@ class Obstacle():
     # Post: Returns 3 arrays with lidar scans, left, center and right
     def split_scan(self, lidar_distances):
         lidar_left = [d for d in lidar_distances[10:36] if d != 0]
-        lidar_center = [d for d in lidar_distances[35:56] if d != 0]
+        lidar_center = [d for d in lidar_distances[30:62] if d != 0]
         lidar_right = [d for d in lidar_distances[55:81] if d != 0]
         return (lidar_left, lidar_center, lidar_right)
     
@@ -112,8 +112,8 @@ class Obstacle():
     # Purpose: ...
     def get_center_avrg(self, center_arr):
         center_size = len(center_arr)
-        if center_size == 1: return center_arr[0]
-        center_avrg = min([sum(center_arr[:(center_size/2)]) / (center_size/2), sum(center_arr[(center_size/2):]) / (center_size/2)])
+        if center_size <= 2: return min(center_arr)
+        center_avrg = min([sum(center_arr[:(center_size/3)]) / (center_size/3), sum(center_arr[(center_size/3):center_size*(2/3)]) / (center_size/3), sum(center_arr[center_size*(2/3):]) / (center_size/3)])
         return center_avrg
 
     # ----- GET ANGULAR VELOCITY -----

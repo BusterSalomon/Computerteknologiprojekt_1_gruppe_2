@@ -112,8 +112,8 @@ class Obstacle():
     # Purpose: ...
     def get_center_avrg(self, center_arr):
         center_size = len(center_arr)
-        if center_size <= 2: return min(center_arr)
-        center_avrg = min([sum(center_arr[:(center_size/3)]) / (center_size/3), sum(center_arr[(center_size/3):center_size*(2/3)]) / (center_size/3), sum(center_arr[center_size*(2/3):]) / (center_size/3)])
+        if center_size == 1: center_size = 2
+        center_avrg = min([sum(center_arr[:(center_size/2)]) / (center_size/2), sum(center_arr[(center_size/2):]) / (center_size/2)])
         return center_avrg
 
     # ----- GET ANGULAR VELOCITY -----

@@ -89,10 +89,10 @@ class Obstacle():
                 rospy.loginfo("going STRAIGHT!")
             elif(left_avrg > right_avrg ):
                 direction = -1
-                rospy.loginfo("turning RIGHT!")
+                rospy.loginfo("turning LEFT!")
             else:
                 direction = 1
-                rospy.loginfo("turning LEFT!")
+                rospy.loginfo("turning RIGHT!")
             rospy.loginfo("left avrg: %f", left_avrg)
             rospy.loginfo("right avrg: %f", right_avrg)
         return direction

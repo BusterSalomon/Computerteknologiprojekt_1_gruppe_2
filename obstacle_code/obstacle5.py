@@ -84,7 +84,7 @@ class Obstacle():
     def get_direction (self, left_avrg, center_avrg, right_avrg):
         direction = 0
         if (center_avrg < TURNING_DISTANCE):
-            if (abs(left_avrg - right_avrg) < 0.1 and center_avrg > SAFE_STOP_DISTANCE): # need explanation
+            if (abs(left_avrg - right_avrg) < 0.1 and center_avrg > SAFE_STOP_DISTANCE):
                 direction = 0
                 rospy.loginfo("going STRAIGHT!")
             elif(left_avrg > right_avrg ):

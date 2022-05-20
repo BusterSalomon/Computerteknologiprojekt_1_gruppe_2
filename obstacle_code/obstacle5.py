@@ -120,19 +120,14 @@ class Obstacle():
     # Pre: Takes the center average distance
     # Post: Calculates and returns the angular velocity.
     # The angular velocity is calculated so it increases as it moves closer to obstacles
-    # NOTEE: we could make a graph/function that shows how much is turns based on the center average! Maybe we should make it exponentiel instead of linear?
     def get_angular_vel(self, center_avrg, direction):
-        if (center_avrg < TURNING_DISTANCE):
-            angular_vel = (1.3602*center_avrg**2-4.74396*center_avrg+4.13376)*direction
-        else: 
-            angular_vel = 0
+        angular_vel = (1.3602*center_avrg**2-4.74396*center_avrg+4.13376)*direction
         return angular_vel
     
     # ----- GET LINEAR VELOCITY ----- 
     # Pre: Takes center average, angular velocity and direction as parameters
     # Post: Returns the linear velocity, and a collision flag
     # The linear velocity is calculated so it goes slower as it moves closer to an obstacle
-    # NOTEE: math function that shows the linear speed as a function of center avrg!
     def get_linear_vel(self, center_avrg):
         linear_vel = 0
         collision_flag = False
